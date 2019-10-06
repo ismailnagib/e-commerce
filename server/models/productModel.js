@@ -1,7 +1,8 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-const productSchema = new Schema({
+const productSchema = new Schema(
+  {
     name: {
       type: String,
       required: true,
@@ -33,19 +34,23 @@ const productSchema = new Schema({
       min: 0
     },
     ratedBy: Array,
-    ratings: [{
-      type: Number,
-      max: 5,
-      min: 0
-    }],
+    ratings: [
+      {
+        type: Number,
+        max: 5,
+        min: 0
+      }
+    ],
     category: {
       type: Schema.Types.ObjectId,
-      ref: 'Category',
+      ref: "Category",
       required: true
     }
-}, {
-  timestamps: true
-});
+  },
+  {
+    timestamps: true
+  }
+);
 
-const Product = mongoose.model('Product', productSchema)
-module.exports = Product
+const Product = mongoose.model("Product", productSchema);
+module.exports = Product;

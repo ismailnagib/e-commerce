@@ -1,10 +1,11 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-const userSchema = new Schema({
+const userSchema = new Schema(
+  {
     name: {
       type: String,
-      required: true,
+      required: true
     },
     email: {
       type: String,
@@ -22,10 +23,12 @@ const userSchema = new Schema({
       type: Number,
       default: 0
     },
-    items: [{
-      type: Schema.Types.ObjectId,
-      ref: 'Product'
-    }],
+    items: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Product"
+      }
+    ],
     counts: {
       type: Array
     },
@@ -36,34 +39,40 @@ const userSchema = new Schema({
       type: Number,
       default: 0
     },
-    transaction: [{
-      cart: {
-        counts: Array,
-        items: [{
-          type: Schema.Types.ObjectId,
-          ref: 'Product'
-        }],
-        total: {
-          type: Array
+    transaction: [
+      {
+        cart: {
+          counts: Array,
+          items: [
+            {
+              type: Schema.Types.ObjectId,
+              ref: "Product"
+            }
+          ],
+          total: {
+            type: Array
+          },
+          totalsum: {
+            type: Number,
+            default: 0
+          },
+          discount: {
+            type: Number,
+            default: 0
+          }
         },
-        totalsum: {
-          type: Number,
-          default: 0
-        },
-        discount: {
-          type: Number,
-          default: 0
+        date: {
+          type: Date,
+          required: true
         }
-      },
-      date: {
-        type: Date,
-        required: true
       }
-    }],
+    ],
     boughtProducts: Array
-}, {
-  timestamps: true
-});
+  },
+  {
+    timestamps: true
+  }
+);
 
-const User = mongoose.model('User', userSchema)
-module.exports = User
+const User = mongoose.model("User", userSchema);
+module.exports = User;

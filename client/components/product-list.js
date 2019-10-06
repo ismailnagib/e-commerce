@@ -1,16 +1,13 @@
-Vue.component('product-list', {
-    template:
-    `
+Vue.component("product-list", {
+  template: `
     <div>
         <div class="row" id='products' v-if='products.length > 0'>
             <div class="containerku col-sm-6 col-md-5 col-lg-3" v-for='product in products'>
                 <div class="cardku">
-                    <div class="card-head">
-                        <img :src="product.image" alt="Shoe" class="product-img">
-                        <div class="product-detail">
-                            <h2>{{ product.name }}</h2>
-                            <p>{{ product.description | descSlice }}</p>
-                        </div>
+                    <div
+                      class="card-head"
+                      :style="{ background: 'url('+product.image+') no-repeat center center' }"
+                    >
                         <span class="back-text">
                             {{ product.backtext }}
                         </span>
@@ -20,22 +17,21 @@ Vue.component('product-list', {
                             <span class="product-title">
                                 <b>{{ product.name }}</b>
                             </span>
+                            <span class="product-desc">
+                              {{ product.description }}
+                            </span>
                             <span class="product-caption">
                                 {{ product.category.name }}
                             </span>
                             <span class="product-rating">
-                                <i class="fa fa-star gold" v-for='i in Math.floor(product.rating)'></i>
-                                <i class="fa fa-star-half gold" v-for='i in Math.round(product.rating - Math.floor(product.rating))'></i>
-                                <i class="fa fa-star" v-for='i in (5 - (Math.floor(product.rating) + Math.round(product.rating - Math.floor(product.rating))))'></i>
+                                <i class="fa fa-star" :style="{ color: i <= Math.round(product.rating) ? 'gold' : 'black' }" v-for='i in 5'></i>
                             </span>
-                        </div><br>
+                        </div>
                         <div class="product-properties">
                             <span class="product-price">
                                 IDR<b>{{ product.price | priceSlice }}</b>
                             </span>
-                        </div>
-                        <div class='atclogo' title="Add to Cart">
-                            <span>
+                            <span class='atclogo' title="Add to Cart">
                                 <i class="fas fa-cart-plus" v-on:click='addToCart(product)'></i>
                             </span>
                         </div>
@@ -43,75 +39,59 @@ Vue.component('product-list', {
                 </div>
             </div>
         </div>
-        <div v-else class="row">
+        <div v-else class="row mt-4">
             <div class="col text-center" style="margin-top: 10vh">
-                <i class="fas fa-archive nores mb-4" style="font-size: 200px; height: 200px; width: 200px"></i>
-                <h3 class="mt-4">Sorry, but we can't find anything like that</h3>
-                <button @click='getProducts' class='gp-btn btn mt-4'>Let me see the other great stuff!</button>
+                <h2 id="not-found-title">Oops!</h2>
+                <h3 id="not-found-subtitle">Sorry, but we couldn't find anything.</h3>
             </div>
         </div>
     </div>
     `,
-    props: ['products'],
-    methods: {
-        getProducts() {
-            this.$emit('getproducts')
-        },
-        addToCart(product) {
-            app.itemcount ++
-            let i = app.items.indexOf(product.name)
-            if (i === -1) {
-                app.items.push(product.name)
-                app.cart.push({
-                    name: product.name,
-                    price: product.price,
-                    count: 1,
-                    total: product.price
-                })
-                app.totalsum += product.price
-
-                app.itemsReal.push(product._id)
-                app.counts.push(1)
-            } else {
-                app.cart[i].count ++
-                app.cart[i].total += product.price
-                app.totalsum += product.price
-                app.counts[i] ++
-            }
-            
-            localStorage.setItem('items', JSON.stringify(app.items))
-            localStorage.setItem('itemsID', JSON.stringify(app.itemsReal))
-            localStorage.setItem('cart', JSON.stringify(app.cart))
-            localStorage.setItem('totalsum', app.totalsum)
-
-            this.$emit('updatecart')
-        }
+  props: ["products"],
+  methods: {
+    getProducts() {
+      this.$emit("getproducts", "");
     },
-    filters: {
-        priceSlice(value) {
-            let str = String(value)
-            if (str.length > 7) {
-                return str.slice(0, str.length-6) + 'M'
-            } else if (str.length > 3) {
-                return str.slice(0, str.length-3) + 'K'
-            } else {
-                return str
-            }
-        },
-        descSlice(value) {
-            let i = value.length / 24
-            let j = Math.floor(i)
-            if (i <= 1) {
-                return value
-            } else {
-                let str = []
-                let rest = value
-                for (; j >= 0; j--) {
-                    str.push(rest.slice(0, 24))
-                    rest = rest.slice(24)
-                }
-                return str.join(' ')
-            }
-        }
+    addToCart(product) {
+      app.itemcount++;
+      let i = app.items.indexOf(product.name);
+      if (i === -1) {
+        app.items.push(product.name);
+        app.cart.push({
+          name: product.name,
+          price: product.price,
+          count: 1,
+          total: product.price
+        });
+        app.totalsum += product.price;
+
+        app.itemsReal.push(product._id);
+        app.counts.push(1);
+      } else {
+        app.cart[i].count++;
+        app.cart[i].total += product.price;
+        app.totalsum += product.price;
+        app.counts[i]++;
+      }
+
+      localStorage.setItem("items", JSON.stringify(app.items));
+      localStorage.setItem("itemsID", JSON.stringify(app.itemsReal));
+      localStorage.setItem("cart", JSON.stringify(app.cart));
+      localStorage.setItem("totalsum", app.totalsum);
+
+      this.$emit("updatecart");
     }
-})
+  },
+  filters: {
+    priceSlice(value) {
+      let str = String(value);
+      if (str.length > 7) {
+        return str.slice(0, str.length - 6) + "M";
+      } else if (str.length > 3) {
+        return str.slice(0, str.length - 3) + "K";
+      } else {
+        return str;
+      }
+    }
+  }
+});

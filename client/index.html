@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Shoeka - A Simple E-Commerce Website</title>
+    <title>Shoeka - Cause there's always a better shoes</title>
     <link rel="shortcut icon" href="favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
@@ -14,36 +14,43 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" type="text/css" media="screen" href="faextended.css" />
+    <script src="./config.js"></script>
 </head>
 <body>
     <div id='app'>
-        <div v-if='loading' id='loading-page'>
+        <div class="app-content" v-if='loading' id='loading-page'>
             <div class="load-bg"></div>
             <div class="loader">Loading...</div>
         </div>
-        <div v-else>
+        <div class="app-content" v-else>
 
             <!-- SIDEBAR -->
             <side-bar 
-                :categories='categories' :isadmin='isAdmin' :islogin='isLogin' :items='items' :cart='cart' :totalsum='totalsum' :itemcount='itemcount' :itemsreal='itemsReal' :counts='counts'
-                @products='updateProducts' @opentab='updateOpenTab' @getproducts='getProducts' @showph='showPH' @authuser='updateAuthUser' @comparecarts='compareCarts'
-                @islogin='updateIsLogin' @isadmin='updateIsAdmin' @emptycart='emptyCart' @togglebackdrop='toggleBackdrop' @updatecart='updateCart'
+                :categories='categories' :isadmin='isAdmin' :islogin='isLogin' :items='items' :cart='cart' :totalsum='totalsum' :itemcount='itemcount' :itemsreal='itemsReal' :counts='counts' :baseurl='baseUrl'
+                @getproducts='getProducts' @showph='showPH' @authuser='updateAuthUser' @comparecarts='compareCarts'
+                @islogin='updateIsLogin' @isadmin='updateIsAdmin' @emptycart='emptyCart' @showbackdrop='showBackdrop' @togglebackdrop='toggleBackdrop' @closebackdrop='closeBackdrop' @updatecart='updateCart'
             ></side-bar>
 
             <!-- CONTENT -->
-            <div class="row">
-                <div class="col-3"></div>
-                <div class="col-9">
+            <div id="content-box">
+                <div
+                    id="sidebar-placeholder"
+                    :style='{ minHeight: (categories.length + 7) * 30 + "px" }'
+                ></div>
+                <div id="content">
 
                     <!-- PURCHASE HISTORY -->
                     <purchase-history v-if='openTab === "ph"'
                         :authuserid='authUserId'
+                        :baseurl='baseUrl'
                         @getproducts='getProducts'
                     ></purchase-history>
 
                     <!-- ADMIN PAGE -->
                     <admin-page v-else-if='openTab === "ap"'
-                        :categories='categories' :products='products'
+                        :categories='categories'
+                        :products='products'
+                        :baseurl='baseUrl'
                         @togglebackdrop='toggleBackdrop' @closebackdrop='closeBackdrop' @getproducts='getProducts' @getcategories='getCategories'
                     ></admin-page>
 
@@ -57,7 +64,7 @@
             </div>
 
             <!-- BACKDROP FOR MODALS -->
-            <div id="backdrop" v-if='openBackdrop'></div>
+            <div class="backdrop" v-if='openBackdrop'></div>
 
         </div>
     </div>
@@ -69,7 +76,7 @@
         var app = new Vue({
             el: '#app',
             data: {
-                loading: true,
+                loading: false,
                 categories: [],
                 products: [],
                 openBackdrop: false,
@@ -82,12 +89,13 @@
                 isLogin: false,
                 authUserId: '',
                 isAdmin: false,
-                openTab: 'all'
+                openTab: '',
+                baseUrl: config.BASE_URL
             },
             methods: {
                 getCategories() {
                     axios({
-                        url: 'https://shoeka-server.ismailnagib.xyz/categories'
+                        url: `${config.BASE_URL}/categories`
                     })
                     .then(data => {
                         this.categories = data.data
@@ -96,26 +104,25 @@
                         console.log(err)
                     })
                 },
-                getProducts(stop) {
+                getProducts(openTab = '', parameter = '', load = true) {
+                    this.loading = load;
+
                     axios({
-                        url: 'https://shoeka-server.ismailnagib.xyz/products'
+                        url: `${config.BASE_URL}/products/${parameter}`
                     })
                     .then(data => {
                         this.products = data.data
-                        if (!stop) {
-                            this.openTab = 'all'
-                        }
+                        this.openTab = openTab
+                        localStorage.setItem('ot', openTab)
+                        this.loading = false;
                     })
                     .catch(err => {
                         console.log(err)
+                        this.loading = false;
                     })
                 },
                 updateProducts(value) {
                     this.products = value
-                },
-                updateOpenTab(value) {
-                    this.openTab = value
-                    localStorage.setItem('ot', value)
                 },
                 updateAuthUser(value) {
                     this.authUserId = value
@@ -134,6 +141,9 @@
                     this.itemsReal = []
                     this.counts = []
                 },
+                showBackdrop() {
+                    this.openBackdrop = true
+                },
                 toggleBackdrop() {
                     this.openBackdrop = !this.openBackdrop
                 },
@@ -142,7 +152,7 @@
                 },
                 updateCart() {
                     axios({
-                        url: 'https://shoeka-server.ismailnagib.xyz/users/cart',
+                        url: `${config.BASE_URL}/users/cart`,
                         method: 'patch',
                         headers: {
                             token: localStorage.getItem('token')
@@ -153,13 +163,11 @@
                         }
                     })
                     .then(() => {})
-                    .catch(err => {
-                        console.log("Don't worry, it's just that you haven't signed in :)")
-                    })
+                    .catch(err => {})
                 },
                 checkLogin() {
                     axios({
-                        url: 'https://shoeka-server.ismailnagib.xyz/users/check',
+                        url: `${config.BASE_URL}/users/check`,
                         headers: {
                             token: localStorage.getItem('token')
                         }
@@ -172,14 +180,11 @@
                             this.compareCarts()
                         }
                     })
-                    .catch(err => {
-                        console.log("Don't worry, it's just that you haven't signed in :)")
-                        this.getLocalCart()
-                    })
+                    .catch(err => { this.getLocalCart() })
                 },
                 compareCarts() {
                     axios({
-                        url: 'https://shoeka-server.ismailnagib.xyz/users/cart',
+                        url: `${config.BASE_URL}/users/cart`,
                         headers: {
                             token: localStorage.getItem('token')
                         }
@@ -268,27 +273,28 @@
                 },
                 showPH() {
                     this.openTab = 'ph'
+                    localStorage.setItem('ot', 'ph')
                 }
             },
             created() {
                 this.getCategories()
-                this.getProducts()
+
+                const ot = localStorage.getItem('ot') || ''
+
+                this.openTab = ot;
+            
+                if (ot === "") {
+                    this.getProducts()
+                } else if (ot === "ph") {
+                    this.showPH();
+                } else if (ot === "ap") {
+                    this.getProducts("ap")
+                } else {
+                    this.getProducts(ot, ot)
+                }
+
                 if (localStorage.getItem('token')) {
                     this.checkLogin()
-                }
-            },
-            watch: {
-                products() {
-                    if (this.products.length > 0) {
-                        setTimeout(() => {
-                            this.loading = false
-                        }, 1000)
-                    } else if (this.keyword === '') {
-                        this.loading = true
-                        setTimeout(() => {
-                            this.loading = false
-                        }, 5000)
-                    }
                 }
             }
         })

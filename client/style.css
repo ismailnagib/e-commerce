@@ -8,6 +8,11 @@
     display: none;
 }
 
+html, #app, .app-content {
+    height: 100%;
+    width: 100%;
+}
+
 body {
     font-family: 'Roboto', sans-serif;
     max-width: 99%;
@@ -16,6 +21,7 @@ body {
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* IE10+/Edge */
     user-select: none; /* Standard */
+    height: 100%;
 }
 
 h1, h2, h3, h4, h5, h6, p, span {
@@ -30,12 +36,12 @@ h1, h2, h3, h4, h5, h6, p, span {
 }
   
 .load-bg {
-    width: 100vw;
-    height: 100vh;
-    background: #fa782e;
-    background: -moz-linear-gradient(-45deg, #fa782e 8%, #c82930 83%);
-    background: -webkit-linear-gradient(-45deg, #fa782e 8%, #c82930 83%);
-    background: linear-gradient(135deg, #fa782e 8%, #c82930 83%);
+    width: 100%;
+    height: 100%;
+    background: #0fd252;
+    background: -moz-linear-gradient(-45deg, #0fd252 8%, #0a8c37 83%);
+    background: -webkit-linear-gradient(-45deg, #0fd252 8%, #0a8c37 83%);
+    background: linear-gradient(135deg, #0fd252 8%, #0a8c37 83%);
 }
 
 .loader {
@@ -105,20 +111,16 @@ h1, h2, h3, h4, h5, h6, p, span {
     }
 }
 
-#products {
-    margin-top: 30px;
-}
-
 .containerku {
-    max-width: 280px !important;
-    min-width: 280px !important;
-    height: 500px !important;
-    margin: 5px 50px 5px 0px;
+    min-width: 240px !important;
+    overflow: hidden;
+    margin: 5px 50px 50px 0px;
 }
 
 .cardku {
     border-radius: 25px;
     box-shadow: -11px 11px 1px rgba(0, 0, 0, 0.3);
+    margin-bottom: 12px;
 }
 
 .card-head {
@@ -126,60 +128,23 @@ h1, h2, h3, h4, h5, h6, p, span {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    height: 252px;
-    background: #fa782e;
-    background: -moz-linear-gradient(-45deg, #fa782e 8%, #c82930 83%);
-    background: -webkit-linear-gradient(-45deg, #fa782e 8%, #c82930 83%);
-    background: linear-gradient(135deg, #fa782e 8%, #c82930 83%);
-    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#fa782e', endColorstr='#c82930', GradientType=1);
+    height: 250px;
     border-radius: 25px 25px 0 0;
-}
-
-.product-img {
-    position: absolute;
-    left: 0;
-    margin-top: 25px;
-    margin-left: 40px;
-    max-width: 200px; 
-}
-
-.product-detail {
-    padding: 0 20px;
-    font-size: 11px;
-    color: #fff;
-    display:flex;
-    flex-direction:column;
-    margin-top: 40px;
-    flex-basis:100%;
-}
-
-.product-detail h2 {
-    font-size: 18px;
-    font-weight: 500;
-    letter-spacing: 2px;
-    padding-bottom: 10px;
-    text-transform: uppercase;
-}
-
-.product-detail p {
-    font-size: 14px;
-    font-family: 'Roboto Mono', monospace !important;
+    background-size: cover !important;
 }
 
 .back-text {
     display: inline-block;
-    height: 80px;
+    height: 60px;
+    line-height: 60px;
     font-size: 80px;
     font-weight: 900;
-    margin-left: -5px;
     opacity: 0.1;
-    margin-bottom: 7.5px;
     align-self:flex-end;
     text-transform: uppercase;
 }
 
 .card-bodyku {
-    height: 180px;
     background: #fff;
     border-radius: 0 0 25px 25px;
 }
@@ -198,6 +163,13 @@ h1, h2, h3, h4, h5, h6, p, span {
     letter-spacing: 2.5px;
 }
 
+.product-desc {
+    display: block;
+    padding: 0 20px;
+    padding-bottom: 20px;
+    font-size: 12px;
+}
+
 .product-caption {
     display: block;
     padding: 0 20px;
@@ -212,13 +184,13 @@ h1, h2, h3, h4, h5, h6, p, span {
     font-size: 11px;
 }
 
-.gold {
-    color: gold;
+.product-properties {
+    height: 70px;
 }
 
 .product-price {
     position: absolute;
-    background: #11e95b;
+    background: #0fd252;
     padding: 7px 20px;
     text-align: center;
     display: inline-block;
@@ -226,7 +198,6 @@ h1, h2, h3, h4, h5, h6, p, span {
     font-weight: 200;
     color: #fff;
     border-radius: 7px;
-    margin-top: -15px;
     margin-left: -5px;
     box-shadow: -10px 20px 15px -10px rgba(17, 233, 91, 0.3);
 }
@@ -238,9 +209,8 @@ h1, h2, h3, h4, h5, h6, p, span {
     display: inline-block;
     font-size: 20px;
     font-weight: 200;
-    color: #11e95b;
+    color: #0fd252;
     border-radius: 7px;
-    margin-top: -15px;
     margin-left: -5px;
     right: 40px;
 }
@@ -251,44 +221,95 @@ h1, h2, h3, h4, h5, h6, p, span {
 
 /* MY OWN CSS */
 #sidebar {
+    display: flex;
     position: fixed;
-    overflow: hidden;
+    overflow-x: hidden;
     color: white;
-    background: #fa782e;
-    background: -moz-linear-gradient(-45deg, #fa782e 8%, #c82930 83%);
-    background: -webkit-linear-gradient(-45deg, #fa782e 8%, #c82930 83%);
-    background: linear-gradient(135deg, #fa782e 8%, #c82930 83%);
-    z-index: 100;
+    background: #0fd252;
+    background: -moz-linear-gradient(-45deg, #0fd252 8%, #0a8c37 83%);
+    background: -webkit-linear-gradient(-45deg, #0fd252 8%, #0a8c37 83%);
+    background: linear-gradient(135deg, #0fd252 8%, #0a8c37 83%);
+    z-index: 11000;
     height: 100vh;
-    width: 73.5px;
     -webkit-transition: width 0.15s linear;
     transition: width 0.15s linear;
 }
 
-#sidebar:hover {
-    width: 20vw;
-    overflow: visible;
+.sidebar-item {
+    display: flex;
+    align-content: center;
+}
+
+.sidebar-icon {
+    width: 75px;
+    height: 3.75vh;
+    min-height: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sidebar-icon i {
+    height: 2.75vh;
+    min-height: 21px;
+    margin: 0.5vh 0;
+}
+
+.sidebar-text {
+    height: 3.75vh;
+    min-height: 28px;
+    width: 0;
+    display: flex;
+    align-items: center;
+}
+
+#sidebar:hover .sidebar-text {
+    width: auto;
 }
 
 #sidebar ul {
+    margin: 2vh 0;
     list-style: none;
     font-family: 'Roboto', sans-serif;
 }
 #sidebar ul li {
-    padding: 10px 0px;
+    padding: 1.25vh 0;
     cursor: pointer;
-    line-height: 20px;
-    font-size: 25px;
+    font-size: 18px;
 }
 
 #sidebar ul li:hover {
     color: rgba(255,255,255,0.7)
 }
 
+#sidebar-placeholder {
+    width: 75px;
+    height: 100%;
+}
+
+#content-box {
+    display: flex;
+    height: 100%;
+}
+
+#content {
+    width: calc(100% - 75px);
+    height: 100%;
+    padding: calc(2% + 15px);
+}
+
+#not-found-title {
+    font-size: 15vw;
+}
+
+#not-found-subtitle {
+    font-size: 2vw;
+    margin-top: 5vh;
+}
+
 .menutext {
-    position: absolute;
     font-weight: bold;
-    width: 14vw;
+    margin: 0;
 }
 
 .fas, .fa, .fab {
@@ -313,70 +334,83 @@ h1, h2, h3, h4, h5, h6, p, span {
 .fa-cart-plus:hover {
     cursor: pointer;
 }
-#backdrop {
+.backdrop {
     position: fixed;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     top: 0px;
     left: 0px;
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 10000
 }
-#redhalf {
-    position: fixed;
+
+#signmodal {
     display: flex;
-    width: 20vw;
-    height: 25vh;
-    background: #fa782e;
-    background: -moz-linear-gradient(-45deg, #fa782e 8%, #c82930 83%);
-    background: -webkit-linear-gradient(-45deg, #fa782e 8%, #c82930 83%);
-    background: linear-gradient(135deg, #fa782e 8%, #c82930 83%);
-    top: 25vh;
-    left: 40vw;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: calc(100vw - 75px);
+    height: 100vh;
+    margin-left: 75px;
+    position: fixed;
     z-index: 11000;
+}
+
+#upperhalf {
+    display: flex;
+    width: 21vw;
+    min-width: 210px;
+    height: 25vh;
+    min-height: 240px;
+    background: #0fd252;
+    background: -moz-linear-gradient(-45deg, #0fd252 8%, #0a8c37 83%);
+    background: -webkit-linear-gradient(-45deg, #0fd252 8%, #0a8c37 83%);
+    background: linear-gradient(135deg, #0fd252 8%, #0a8c37 83%);
     justify-content: center;
     border: transparent;
     border-radius: 2vw 2vw 0 0;
 }
-#redhalf #signinform, #redhalf #signupform {
+#upperhalf #signinform, #upperhalf #signupform {
     margin: auto;
     width: 80%;
 }
-#redhalf #signinform input, #redhalf #signupform input {
+#upperhalf #signinform input, #upperhalf #signupform input {
     width: 100%;
     margin: auto;
     border: transparent;
     border-radius: 1.5vh;
     display: block;
     padding: 2.5% 7.5%;
+    font-size: 14px;
     font-family: 'Roboto', sans-serif;
     color: rgba(0, 0, 0, 0.5);
 }
-#redhalf #signupform #newname {
-    color: #fa782e;
+#upperhalf #signupform #newname {
+    color: #0fd252;
 }
-#whitehalf {
-    position: fixed;
+#bottomholf {
     display: flex;
     height: 10vh;
-    width: 20vw;
+    min-height: 60px;
+    width: 21vw;
+    min-width: 210px;
     background: white;
-    top: 49.9vh;
-    left: 40vw;
-    z-index: 11000;
     font-family: 'Roboto', sans-serif;
     border: transparent;
     border-radius: 0 0 2vw 2vw;
 }
-#whitehalf button {
-    width: 100%;
+#bottomholf button {
+    width: 7vw;
+    min-width: 70px;
     background: white;
     outline: none;
     cursor: pointer;
     border: none;
     color: rgba(0, 0, 0, 0.8);
+    font-size: 15px;
+    padding: 7.5px;
 }
-#whitehalf button:hover {
+#bottomholf button:hover {
     background: rgba(0, 0, 0, 0.1)
 }
 #signin-btn {
@@ -384,17 +418,17 @@ h1, h2, h3, h4, h5, h6, p, span {
     border-radius: 0 0 0 2vw;
 }
 #signin-btn:hover {
-    color: #fa782e;
+    color: #0fd252;
 }
 #signup-btn {
     border: transparent;
     border-radius: 0 0 2vw 0;
 }
 #signup-btn:hover {
-    color: #c82930;
+    color: #0fd252;
 }
 #close-btn:hover {
-    color: #de4d2f
+    color: #0fd252
 }
 
 #cartmodal {
@@ -403,6 +437,7 @@ h1, h2, h3, h4, h5, h6, p, span {
     flex-direction: column;
     max-height: 50vh;
     width: 30vw;
+    min-width: 200px;
     overflow: auto;
     background: white;
     top: 25vh;
@@ -426,11 +461,16 @@ h1, h2, h3, h4, h5, h6, p, span {
 }
 .cartBtn {
     color: white;
-    background: #fa782e;
-    background: -moz-linear-gradient(-45deg, #fa782e 8%, #c82930 83%);
-    background: -webkit-linear-gradient(-45deg, #fa782e 8%, #c82930 83%);
-    background: linear-gradient(135deg, #fa782e 8%, #c82930 83%);
+    background: #0fd252;
+    background: -moz-linear-gradient(-45deg, #0fd252 8%, #0a8c37 83%);
+    background: -webkit-linear-gradient(-45deg, #0fd252 8%, #0a8c37 83%);
+    background: linear-gradient(135deg, #0fd252 8%, #0a8c37 83%);
     width: 100%;
+}
+
+.input-coupon {
+    width: 100%;
+    border: solid 2px rgba(0, 0, 0, 0.1);
 }
 
 .search {
@@ -438,17 +478,14 @@ h1, h2, h3, h4, h5, h6, p, span {
     color: white;
     border: none;
     text-transform: capitalize;
-    font-size: 25px;
-    height: 25px;
-    padding: 10px 0px;
 }
 
 .rateBtn {
     color: white;
-    background: #fa782e;
-    background: -moz-linear-gradient(-45deg, #fa782e 8%, #c82930 83%);
-    background: -webkit-linear-gradient(-45deg, #fa782e 8%, #c82930 83%);
-    background: linear-gradient(135deg, #fa782e 8%, #c82930 83%);
+    background: #0fd252;
+    background: -moz-linear-gradient(-45deg, #0fd252 8%, #0a8c37 83%);
+    background: -webkit-linear-gradient(-45deg, #0fd252 8%, #0a8c37 83%);
+    background: linear-gradient(135deg, #0fd252 8%, #0a8c37 83%);
 }
 
 #ap {
@@ -467,10 +504,10 @@ h1, h2, h3, h4, h5, h6, p, span {
     min-width: 400px !important;
     background: white;
     border: solid 5px;
-    border-color: #fa782e;
-    border-color: -moz-linear-gradient(-45deg, #fa782e 8%, #c82930 83%);
-    border-color: -webkit-linear-gradient(-45deg, #fa782e 8%, #c82930 83%);
-    border-color: linear-gradient(135deg, #fa782e 8%, #c82930 83%);
+    background: #0fd252;
+    background: -moz-linear-gradient(-45deg, #0fd252 8%, #0a8c37 83%);
+    background: -webkit-linear-gradient(-45deg, #0fd252 8%, #0a8c37 83%);
+    background: linear-gradient(135deg, #0fd252 8%, #0a8c37 83%);
     border-radius: 50px;
     display: flex;
     cursor: pointer;
@@ -479,10 +516,10 @@ h1, h2, h3, h4, h5, h6, p, span {
 
 .adminmenu:hover {
     color: white;
-    background: #fa782e;
-    background: -moz-linear-gradient(-45deg, #fa782e 8%, #c82930 83%);
-    background: -webkit-linear-gradient(-45deg, #fa782e 8%, #c82930 83%);
-    background: linear-gradient(135deg, #fa782e 8%, #c82930 83%);
+    background: #0fd252;
+    background: -moz-linear-gradient(-45deg, #0fd252 8%, #0a8c37 83%);
+    background: -webkit-linear-gradient(-45deg, #0fd252 8%, #0a8c37 83%);
+    background: linear-gradient(135deg, #0fd252 8%, #0a8c37 83%);
     border: none;
 }
 
@@ -512,10 +549,10 @@ h1, h2, h3, h4, h5, h6, p, span {
 
 #promoteBtn {
     color: white;
-    background: #fa782e;
-    background: -moz-linear-gradient(-45deg, #fa782e 8%, #c82930 83%);
-    background: -webkit-linear-gradient(-45deg, #fa782e 8%, #c82930 83%);
-    background: linear-gradient(135deg, #fa782e 8%, #c82930 83%);
+    background: #0fd252;
+    background: -moz-linear-gradient(-45deg, #0fd252 8%, #0a8c37 83%);
+    background: -webkit-linear-gradient(-45deg, #0fd252 8%, #0a8c37 83%);
+    background: linear-gradient(135deg, #0fd252 8%, #0a8c37 83%);
     height: 50px;
     width: 400px;
 }
@@ -593,34 +630,37 @@ h1, h2, h3, h4, h5, h6, p, span {
 
 .adminModalBtn {
     color: white;
-    background: #fa782e;
-    background: -moz-linear-gradient(-45deg, #fa782e 8%, #c82930 83%);
-    background: -webkit-linear-gradient(-45deg, #fa782e 8%, #c82930 83%);
-    background: linear-gradient(135deg, #fa782e 8%, #c82930 83%);
+    background: #0fd252;
+    background: -moz-linear-gradient(-45deg, #0fd252 8%, #0a8c37 83%);
+    background: -webkit-linear-gradient(-45deg, #0fd252 8%, #0a8c37 83%);
+    background: linear-gradient(135deg, #0fd252 8%, #0a8c37 83%);
 }
 
 #editCForm select, #deleteCForm select, #addPForm select, #editPForm select, #deletePForm select {
     width: 100%;
 }
 
-.discount {
-    color: #0fb84a;
+.phTotalSum {
+    color: #0fd252;
+    font-size: 20px;
 }
 
-.phTotalSum {
-    color: #de4d2f;
-    font-size: 20px;
+.ph-card {
+    min-width: 650px !important;
+}
+
+.btn {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+    border: none !important;
 }
 
 .gp-btn {
     color: white;
-    background: #fa782e;
-    background: -moz-linear-gradient(-45deg, #fa782e 8%, #c82930 83%);
-    background: -webkit-linear-gradient(-45deg, #fa782e 8%, #c82930 83%);
-    background: linear-gradient(135deg, #fa782e 8%, #c82930 83%);
-    padding: 10px 20px;
-}
-
-.nores {
-    color: #de4d2f;
+    background: #0fd252;
+    background: -moz-linear-gradient(-45deg, #0fd252 8%, #0a8c37 83%);
+    background: -webkit-linear-gradient(-45deg, #0fd252 8%, #0a8c37 83%);
+    background: linear-gradient(135deg, #0fd252 8%, #0a8c37 83%);
+    padding: 2vw 4vw !important;
+    font-size: 1.5vw !important;
 }
