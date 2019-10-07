@@ -2,5 +2,7 @@ node_modules
 .env
 keyfile.json
 .DS_Store
+certificate.pem
+privatekey.pem
 
 client/config.js
