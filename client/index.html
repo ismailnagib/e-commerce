@@ -22,7 +22,7 @@
             <div class="load-bg"></div>
             <div class="loader">Loading...</div>
         </div>
-        <div class="app-content" v-else>
+        <div class="app-content">
 
             <!-- SIDEBAR -->
             <side-bar 
@@ -44,6 +44,7 @@
                         :authuserid='authUserId'
                         :baseurl='baseUrl'
                         @getproducts='getProducts'
+                        @load='load'
                     ></purchase-history>
 
                     <!-- ADMIN PAGE -->
@@ -120,6 +121,9 @@
                         console.log(err)
                         this.loading = false;
                     })
+                },
+                load(value = !this.loading) {
+                    this.loading = value
                 },
                 updateProducts(value) {
                     this.products = value
@@ -277,6 +281,8 @@
                 }
             },
             created() {
+                if (localStorage.getItem('token')) this.checkLogin()
+
                 this.getCategories()
 
                 const ot = localStorage.getItem('ot') || ''
@@ -291,10 +297,6 @@
                     this.getProducts("ap")
                 } else {
                     this.getProducts(ot, ot)
-                }
-
-                if (localStorage.getItem('token')) {
-                    this.checkLogin()
                 }
             }
         })

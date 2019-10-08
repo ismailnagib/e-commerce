@@ -10,12 +10,13 @@ Vue.component("purchase-history", {
                 <div class="card-body pb-0">
                     <div>
                         <h6 class="card-title mb-4 row" v-for='(item, index2) in transaction.cart.items'>
-                            <span class="col-4 text-left">{{ item.name }}</span>
+                            <img :src="item.image" class="col-2 ph-item-image" />
+                            <span class="col-2 text-left"><p>{{ item.name }}</p></span>
                             <span class="col-1 text-right">x</span>
                             <span class="col-1 text-left">{{ transaction.cart.counts[index2] }}</span>
                             <span class="col-3 text-right">Rp{{ transaction.cart.total[index2] | currencySlice }}</span>
                             <span class="col-3 text-center" v-if='item.ratedBy.indexOf(authuserid) !== -1'>
-                                <p>You rated the product</p>
+                                <p class="px-4">You rated the product</p>
                                 <i class="fa fa-star" :style='{ color: i <= item.ratings[item.ratedBy.indexOf(authuserid)] ? "gold" : "black" }' v-for='i in 5'></i>
                             </span>
                             <span class="col-3 text-center" v-else>
@@ -53,6 +54,8 @@ Vue.component("purchase-history", {
       this.$emit("getproducts", "");
     },
     getTransactions() {
+      this.$emit("load", true);
+
       axios({
         url: `${this.baseurl}/users/ph`,
         headers: {
@@ -69,9 +72,11 @@ Vue.component("purchase-history", {
             }
           }
           this.starColors = starColors;
+          this.$emit("load", false);
         })
         .catch(err => {
           console.log(err);
+          this.$emit("load", false);
         });
     },
     starClick(index, index2, clickedStar) {

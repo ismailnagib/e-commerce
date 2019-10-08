@@ -646,7 +646,19 @@ h1, h2, h3, h4, h5, h6, p, span {
 }
 
 .ph-card {
-    min-width: 650px !important;
+    min-width: 675px !important;
+}
+
+.ph-item-image {
+    width: 70px !important;
+    max-width: 70px !important;
+    height: 70px !important;
+    object-fit: cover;
+    border: solid 1px transparent;
+    border-radius: 10px;
+    padding: 0 !important;
+    margin-left: 20px;
+    margin-right: 10px;
 }
 
 .btn {
