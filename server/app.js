@@ -7,7 +7,7 @@ const fs = require('fs');
 const https = require('https');
 
 const app = express();
-const port = process.env.PORT || 80;
+const port = process.env.PORT || 443;
 
 app.use(cors());
 app.use(express.json());
