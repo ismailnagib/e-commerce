@@ -7,7 +7,7 @@ const fs = require('fs');
 const https = require('https');
 
 const app = express();
-const port = process.env.PORT || 443;
+const port = process.env.PORT || 80;
 
 app.use(cors());
 app.use(express.json());
@@ -23,6 +23,7 @@ mongoose.connect(`${process.env.MONGO_DB}`, { useNewUrlParser: true }, (err) => 
 const options = {
   key: fs.readFileSync('./ssl/privatekey.pem'),
   cert: fs.readFileSync('./ssl/certificate.pem'),
+  ca: fs.readFileSync('./ssl/ca.pem')
 };
 
 const server = https.createServer(options, app);

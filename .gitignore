@@ -4,5 +4,6 @@ keyfile.json
 .DS_Store
 certificate.pem
 privatekey.pem
+ca.pem
 
 client/config.js
