@@ -315,13 +315,13 @@ Vue.component("side-bar", {
       }
     },
     signout() {
-      this.menuhover = false;
       this.$emit("authuser", "");
       this.$emit("isadmin", false);
       this.$emit("islogin", false);
       this.$emit("emptycart");
       localStorage.clear();
       this.getProducts();
+      this.menuhover = false;
     },
     signup() {
       if (this.isSigningIn) {
