@@ -21,7 +21,8 @@ Vue.component("purchase-history", {
                             </span>
                             <span class="col-3 text-center" v-else>
                                 <i class="fa fa-star" :style='{ color: i <= starColors[transactions.length - index - 1][index2] ? "gold" : "black" }' v-for='i in 5' @click='starClick(transactions.length - index - 1, index2, i)'></i>
-                                <button class="btn ml-2 rateBtn px-2 py-1" @click='rate(transactions.length - index - 1, index2, item._id)'>Rate</button>
+                                <button v-if="starColors[transactions.length - index - 1][index2] > 0" class="btn ml-2 rateBtn px-2 py-1" @click='rate(transactions.length - index - 1, index2, item._id)'>Rate</button>
+                                <button v-else class="btn ml-2 rateBtn px-2 py-1 disabled">Rate</button>
                             </span>
                         </h6>
                         <hr>
@@ -84,22 +85,25 @@ Vue.component("purchase-history", {
     },
     rate(index, index2, id) {
       let rate = this.starColors[index][index2];
-      axios({
-        url: `${this.baseurl}/products/rate/${id}`,
-        method: "patch",
-        headers: {
-          token: localStorage.getItem("token")
-        },
-        data: {
-          rate: rate
-        }
-      })
-        .then(() => {
-          this.getTransactions();
+
+      if (rate > 0) {
+        axios({
+          url: `${this.baseurl}/products/rate/${id}`,
+          method: "patch",
+          headers: {
+            token: localStorage.getItem("token")
+          },
+          data: {
+            rate: rate
+          }
         })
-        .catch(err => {
-          console.log(err);
-        });
+          .then(() => {
+            this.getTransactions();
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }
     }
   },
   created() {

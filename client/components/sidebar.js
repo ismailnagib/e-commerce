@@ -8,104 +8,108 @@ Vue.component("side-bar", {
             v-on:mouseleave='menuLeave()'
             :style='{ minHeight: (categories.length + 7) * 30 + "px" }'
         >
-            <ul>
-                <li v-on:click='getProducts'>
-                  <div class="sidebar-item">
-                    <div class="sidebar-icon">
-                      <i class="fas fa-archive"></i>
-                    </div>
-                    <div class="sidebar-text">
-                      <p class="menutext">Home</p>
-                    </div>
-                  </div>
-                </li>
+            <div>
+                <ul>
+                    <li v-on:click='getProducts'>
+                      <div class="sidebar-item">
+                        <div class="sidebar-icon">
+                          <i class="fas fa-archive"></i>
+                        </div>
+                        <div class="sidebar-text">
+                          <p class="menutext">Home</p>
+                        </div>
+                      </div>
+                    </li>
 
-                <li>
-                  <div class="sidebar-item">
-                    <div class="sidebar-icon">
-                      <i class="fas fa-search"></i>
-                    </div>
-                    <div class="sidebar-text">
-                      <input class="menutext search" type="text" placeholder="Search" v-model='keyword' v-on:keyup='search()'>
-                    </div>
-                  </div>
-                </li>
+                    <li>
+                      <div class="sidebar-item">
+                        <div class="sidebar-icon">
+                          <i class="fas fa-search"></i>
+                        </div>
+                        <div class="sidebar-text">
+                          <input class="menutext search" type="text" placeholder="Search" v-model='keyword' v-on:keyup='search()'>
+                        </div>
+                      </div>
+                    </li>
 
-                <li v-for='category in categories' v-on:click='showByC(category._id)'>
-                  <div class="sidebar-item">
-                    <div class="sidebar-icon">
-                      <i v-bind:class="category.icon" class="mx-4" ></i>
-                    </div>
-                    <div class="sidebar-text">
-                      <p class="menutext">{{ category.name }}</p>
-                    </div>
-                  </div>
-                </li>
-            </ul>
-            <ul id='bottommenu'>
-                <li v-if='isadmin' v-on:click="showAP()">
-                  <div class="sidebar-item">
-                    <div class="sidebar-icon">
-                      <i class="fab fa-asymmetrik"></i>
-                    </div>
-                    <div class="sidebar-text">
-                      <p class="menutext">Admin Page</p>
-                    </div>
-                  </div>
-                </li>
+                    <li v-for='category in categories' v-on:click='showByC(category._id)'>
+                      <div class="sidebar-item">
+                        <div class="sidebar-icon">
+                          <i v-bind:class="category.icon" class="mx-4" ></i>
+                        </div>
+                        <div class="sidebar-text">
+                          <p class="menutext">{{ category.name }}</p>
+                        </div>
+                      </div>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <ul>
+                    <li v-if='isadmin' v-on:click="showAP()">
+                      <div class="sidebar-item">
+                        <div class="sidebar-icon">
+                          <i class="fab fa-asymmetrik"></i>
+                        </div>
+                        <div class="sidebar-text">
+                          <p class="menutext">Admin Page</p>
+                        </div>
+                      </div>
+                    </li>
 
-                <li v-if='islogin' v-on:click="showPH()">
-                  <div class="sidebar-item">
-                    <div class="sidebar-icon">
-                      <i class="fas fa-shoe-prints"></i>
-                    </div>
-                    <div class="sidebar-text">
-                      <p class="menutext">Purchase History</p>
-                    </div>
-                  </div>
-                </li>
+                    <li v-if='islogin' v-on:click="showPH()">
+                      <div class="sidebar-item">
+                        <div class="sidebar-icon">
+                          <i class="fas fa-shoe-prints"></i>
+                        </div>
+                        <div class="sidebar-text">
+                          <p class="menutext">Purchase History</p>
+                        </div>
+                      </div>
+                    </li>
 
-                <li v-if='!islogin' v-on:click="signModal()">
-                  <div class="sidebar-item">
-                    <div class="sidebar-icon">
-                      <i class="fas fa-sign-in-alt"></i>
-                    </div>
-                    <div class="sidebar-text">
-                      <p class="menutext">Sign In / Register</p>
-                    </div>
-                  </div>
-                </li>
+                    <li v-if='!islogin' v-on:click="signModal()">
+                      <div class="sidebar-item">
+                        <div class="sidebar-icon">
+                          <i class="fas fa-sign-in-alt"></i>
+                        </div>
+                        <div class="sidebar-text">
+                          <p class="menutext">Sign In / Register</p>
+                        </div>
+                      </div>
+                    </li>
 
-                <li v-else v-on:click="signout()">
-                  <div class="sidebar-item">
-                    <div class="sidebar-icon">
-                      <i class="fas fa-sign-out-alt"></i>
-                    </div>
-                    <div class="sidebar-text">
-                      <p class="menutext">Sign Out</p>
-                    </div>
-                  </div>
-                </li>
+                    <li v-else v-on:click="signout()">
+                      <div class="sidebar-item">
+                        <div class="sidebar-icon">
+                          <i class="fas fa-sign-out-alt"></i>
+                        </div>
+                        <div class="sidebar-text">
+                          <p class="menutext">Sign Out</p>
+                        </div>
+                      </div>
+                    </li>
 
-                <li v-on:click="cartModal()">
-                  <div class="sidebar-item">
-                    <div class="sidebar-icon">
-                      <i class="fas fa-shopping-cart"></i>
-                    </div>
-                    <div class="sidebar-text">
-                      <p class="menutext">My Cart ( {{ itemcount }} )</p>
-                    </div>
-                  </div>
-                </li>
+                    <li v-on:click="cartModal()">
+                      <div class="sidebar-item">
+                        <div class="sidebar-icon">
+                          <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="sidebar-text">
+                          <p class="menutext">My Cart ( {{ itemcount }} )</p>
+                        </div>
+                      </div>
+                    </li>
 
-                <li class='itemcount'>
-                  <div class="sidebar-item">
-                    <div class="sidebar-icon" :style="{ color: menuhover === false ? 'white' : 'transparent' }">
-                      <p>{{ itemcount }}</p>
-                    </div>
-                  </div>
-                </li>
-            </ul>
+                    <li class='itemcount'>
+                      <div class="sidebar-item">
+                        <div class="sidebar-icon" :style="{ color: menuhover === false ? 'white' : 'transparent' }">
+                          <p>{{ itemcount }}</p>
+                        </div>
+                      </div>
+                    </li>
+                </ul>
+            </div>
         </div>
         <div id='signmodal' v-if='openSignModal'>
             <div id='upperhalf' v-bind:style='{ height: upperhalfHeight }'>

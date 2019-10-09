@@ -233,6 +233,8 @@ h1, h2, h3, h4, h5, h6, p, span {
     height: 100vh;
     -webkit-transition: width 0.15s linear;
     transition: width 0.15s linear;
+    justify-content: space-between;
+    flex-direction: column;
 }
 
 .sidebar-item {
