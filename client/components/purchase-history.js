@@ -4,28 +4,27 @@ Vue.component("purchase-history", {
         <div class="row col-12 mb-4" v-for='(transaction, index) in transactions.slice().reverse()'>
             <div class="card ph-card col-12 px-0">
                 <div class="card-header row mx-0">
-                    <h5 class="m-0 p-0 col-6 text-left"><b>Transaction {{ transaction._id }}</b></h5>
-                    <h5 class="m-0 p-0 col-6 text-right">{{ transaction.date.slice(0, 10) }}</h5>
+                    <h6 class="m-0 p-0 col-6 text-left"><b>Transaction {{ transaction._id }}</b></h6>
+                    <h6 class="m-0 p-0 col-6 text-right">{{ transaction.date.slice(0, 10) }}</h6>
                 </div>
                 <div class="card-body pb-0">
                     <div>
-                        <h6 class="card-title mb-4 row" v-for='(item, index2) in transaction.cart.items'>
+                        <h6 class="card-title ph-card-title row" v-for='(item, index2) in transaction.cart.items'>
                             <img :src="item.image" class="col-2 ph-item-image" />
-                            <span class="col-2 text-left"><p>{{ item.name }}</p></span>
+                            <span class="col-3 text-left"><p>{{ item.name }}</p></span>
                             <span class="col-1 text-right">x</span>
                             <span class="col-1 text-left">{{ transaction.cart.counts[index2] }}</span>
-                            <span class="col-3 text-right">Rp{{ transaction.cart.total[index2] | currencySlice }}</span>
-                            <span class="col-3 text-center" v-if='item.ratedBy.indexOf(authuserid) !== -1'>
-                                <p class="px-4">You rated the product</p>
+                            <span class="col-4 text-right">Rp{{ transaction.cart.total[index2] | currencySlice }}</span>
+                            <span class="col-12 mt-4 text-left ph-rate" v-if='item.ratedBy.indexOf(authuserid) !== -1'>
+                                <span class="pr-4">You rated the product</span>
                                 <i class="fa fa-star" :style='{ color: i <= item.ratings[item.ratedBy.indexOf(authuserid)] ? "gold" : "black" }' v-for='i in 5'></i>
                             </span>
-                            <span class="col-3 text-center" v-else>
+                            <span class="col-12 mt-4 text-left" v-else>
                                 <i class="fa fa-star" :style='{ color: i <= starColors[transactions.length - index - 1][index2] ? "gold" : "black" }' v-for='i in 5' @click='starClick(transactions.length - index - 1, index2, i)'></i>
                                 <button v-if="starColors[transactions.length - index - 1][index2] > 0" class="btn ml-2 rateBtn px-2 py-1" @click='rate(transactions.length - index - 1, index2, item._id)'>Rate</button>
                                 <button v-else class="btn ml-2 rateBtn px-2 py-1 disabled">Rate</button>
                             </span>
                         </h6>
-                        <hr>
                         <h6 class="card-title row">
                             <span class="col-4 text-left"><b>Total</b></span>
                             <span class="col-4 text-center discount" v-if='transaction.cart.discount > 0'><b>Discount: Rp{{ transaction.cart.discount | currencySlice }}</b></span>

@@ -2,7 +2,7 @@ Vue.component("product-list", {
   template: `
     <div>
         <div class="row" id='products' v-if='products.length > 0'>
-            <div class="containerku col-sm-6 col-md-5 col-lg-3" v-for='product in products'>
+            <div class="containerku col-12 col-sm-6 col-lg-4 col-xl-3" v-for='product in products'>
                 <div class="cardku">
                     <div
                       class="card-head"

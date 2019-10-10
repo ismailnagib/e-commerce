@@ -281,6 +281,7 @@
                 }
             },
             created() {
+                if (window.screen.width < 625 || window.screen.height < 650) window.location.replace(config.MOBILE_SITE)
                 if (localStorage.getItem('token')) this.checkLogin()
 
                 this.getCategories()

@@ -5,5 +5,4 @@ keyfile.json
 certificate.pem
 privatekey.pem
 ca.pem
-
-client/config.js
+config.js
