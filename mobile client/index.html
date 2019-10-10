@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Shoeka - Cause there's always a better shoes</title>
+    <link rel="shortcut icon" href="favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto:300,400,500,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" type="text/css" media="screen" href="faextended.css" />
+    <script src="./config.js"></script>
+    <script src="./vue.js"></script>
+</head>
+<body>
+    <div id='app'>
+        <div class="app-content" v-if='loading' id='loading-page'>
+            <div class="load-bg"></div>
+            <div class="loader">Loading...</div>
+        </div>
+        <div class="app-content">
+
+            <!-- SIDEBAR -->
+            <side-bar 
+                :categories='categories' :isadmin='isAdmin' :islogin='isLogin' :items='items' :cart='cart' :totalsum='totalsum' :itemcount='itemcount' :itemsreal='itemsReal' :counts='counts' :baseurl='baseUrl'
+                @getproducts='getProducts' @showph='showPH' @authuser='updateAuthUser' @comparecarts='compareCarts'
+                @islogin='updateIsLogin' @isadmin='updateIsAdmin' @emptycart='emptyCart' @showbackdrop='showBackdrop' @togglebackdrop='toggleBackdrop' @closebackdrop='closeBackdrop' @updatecart='updateCart'
+            ></side-bar>
+
+            <!-- CONTENT -->
+            <div id="content-box">
+                <div id="content">
+
+                    <!-- PURCHASE HISTORY -->
+                    <purchase-history v-if='openTab === "ph"'
+                        :authuserid='authUserId'
+                        :baseurl='baseUrl'
+                        @getproducts='getProducts'
+                        @load='load'
+                    ></purchase-history>
+
+                    <!-- ADMIN PAGE -->
+                    <admin-page v-else-if='openTab === "ap"'
+                        :categories='categories'
+                        :products='products'
+                        :baseurl='baseUrl'
+                        @togglebackdrop='toggleBackdrop' @closebackdrop='closeBackdrop' @getproducts='getProducts' @getcategories='getCategories'
+                    ></admin-page>
+
+                    <!-- PRODUCT LIST -->
+                    <product-list v-else
+                        :products='products'
+                        @updatecart='updateCart' @getproducts='getProducts'
+                    ></product-list>
+
+                </div>
+            </div>
+
+            <!-- BACKDROP FOR MODALS -->
+            <div class="backdrop" v-if='openBackdrop'></div>
+
+        </div>
+    </div>
+    <script src="./components/sidebar.js"></script>
+    <script src="./components/purchase-history.js"></script>
+    <script src="./components/admin-page.js"></script>
+    <script src="./components/product-list.js"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                loading: false,
+                categories: [],
+                products: [],
+                openBackdrop: false,
+                itemcount: 0,
+                items: [],
+                itemsReal: [],
+                counts: [],
+                cart: [],
+                totalsum: 0,
+                isLogin: false,
+                authUserId: '',
+                isAdmin: false,
+                openTab: '',
+                baseUrl: config.BASE_URL
+            },
+            methods: {
+                getCategories() {
+                    axios({
+                        url: `${config.BASE_URL}/categories`
+                    })
+                    .then(data => {
+                        this.categories = data.data
+                    })
+                    .catch(err => {
+                        // console.log(err)
+                    })
+                },
+                getProducts(openTab = '', parameter = '', load = true) {
+                    this.loading = load;
+
+                    axios({
+                        url: `${config.BASE_URL}/products/${parameter}`
+                    })
+                    .then(data => {
+                        this.products = data.data
+                        this.openTab = openTab
+                        localStorage.setItem('ot', openTab)
+                        this.loading = false;
+                    })
+                    .catch(err => {
+                        // console.log(err)
+                        this.loading = false;
+                    })
+                },
+                load(value = !this.loading) {
+                    this.loading = value
+                },
+                updateProducts(value) {
+                    this.products = value
+                },
+                updateAuthUser(value) {
+                    this.authUserId = value
+                },
+                updateIsLogin(value) {
+                    this.isLogin = value
+                },
+                updateIsAdmin(value) {
+                    this.isAdmin = value
+                },
+                emptyCart() {
+                    this.items = []
+                    this.cart = []
+                    this.totalsum = 0
+                    this.itemcount = 0
+                    this.itemsReal = []
+                    this.counts = []
+                },
+                showBackdrop() {
+                    this.openBackdrop = true
+                },
+                toggleBackdrop() {
+                    this.openBackdrop = !this.openBackdrop
+                },
+                closeBackdrop() {
+                    this.openBackdrop = false
+                },
+                updateCart() {
+                    axios({
+                        url: `${config.BASE_URL}/users/cart`,
+                        method: 'patch',
+                        headers: {
+                            token: localStorage.getItem('token')
+                        },
+                        data: {
+                            items: this.itemsReal,
+                            counts: this.counts
+                        }
+                    })
+                    .then(() => {})
+                    .catch(err => {})
+                },
+                checkLogin() {
+                    axios({
+                        url: `${config.BASE_URL}/users/check`,
+                        headers: {
+                            token: localStorage.getItem('token')
+                        }
+                    })
+                    .then(data => {
+                        if (data.data.isLogin) {
+                            this.isLogin = true
+                            this.authUserId = data.data.id
+                            this.isAdmin = data.data.isAdmin
+                            this.compareCarts()
+                        }
+                    })
+                    .catch(err => { this.getLocalCart() })
+                },
+                compareCarts() {
+                    axios({
+                        url: `${config.BASE_URL}/users/cart`,
+                        headers: {
+                            token: localStorage.getItem('token')
+                        }
+                    })
+                    .then(data => {
+                        let localCart = JSON.parse(localStorage.getItem('cart'))
+                        let localItems = JSON.parse(localStorage.getItem('items'))
+                        let localItemsID = JSON.parse(localStorage.getItem('itemsID'))
+
+                        let validItems = data.data.items
+                        let validCounts = data.data.counts
+                        let validTotal = data.data.total
+                        this.totalsum = data.data.totalsum
+
+                        this.itemcount = 0
+                        
+                        let validCart = []
+                        let validItemNames = []
+                        let validItemsID = []
+                        for (let i = 0; i < validItems.length; i++) {
+                            validItemsID.push(validItems[i]._id)
+                            validItemNames.push(validItems[i].name)
+                            validCart.push({
+                                name: validItems[i].name,
+                                price: validItems[i].price,
+                                count: validCounts[i],
+                                total: validTotal[i]
+                            })
+                        }
+                        
+                        for (let j = 0; j < validCart.length; j++) {
+                            this.itemcount += validCart[j].count
+                        }
+
+                        if (localCart && localItems) {
+                            for (let k = 0; k < localItems.length; k++) {
+                                let valid = false
+                                for (let l = 0; l < validItemNames.length; l++) {
+                                    if (localItems[k] === validItemNames[l]) {
+                                        valid = true
+                                    }
+                                }
+                                if (!valid) {
+                                    validItemNames.push(localItems[k])
+                                    validItemsID.push(localItemsID[k])
+                                    validCart.push(localCart[k])
+                                    validCounts.push(localCart[k].count)
+                                    this.totalsum += localCart[k].total
+                                    this.itemcount += localCart[k].count
+                                }
+                            }
+                        }
+
+                        this.cart = validCart
+                        this.items = validItemNames
+                        this.itemsReal = validItemsID
+                        this.counts = validCounts
+
+                        this.updateCart()
+
+                        localStorage.setItem('items', JSON.stringify(this.items))
+                        localStorage.setItem('itemsID', JSON.stringify(this.itemsReal))
+                        localStorage.setItem('cart', JSON.stringify(this.cart))
+                        localStorage.setItem('totalsum', this.totalsum)
+                    })
+                    .catch(err => {
+                        // console.log(err)
+                    })
+                },
+                getLocalCart() {
+                    let localCart = JSON.parse(localStorage.getItem('cart'))
+                    let localItems = JSON.parse(localStorage.getItem('items'))
+                    let localItemsID = JSON.parse(localStorage.getItem('itemsID'))
+                    let localTotalSum = JSON.parse(localStorage.getItem('totalsum'))
+
+                    if (localCart && localItems && localItemsID && localTotalSum) {
+                        this.cart = localCart
+                        this.items = localItems
+                        this.itemsReal = localItemsID
+                        this.totalsum = localTotalSum
+
+                        for (let i = 0; i < localCart.length; i++) {
+                            this.itemcount += localCart[i].count
+                        }
+                    }                   
+                },
+                showPH() {
+                    this.openTab = 'ph'
+                    localStorage.setItem('ot', 'ph')
+                }
+            },
+            created() {
+                if (window.screen.width >= 625 && window.screen.height >= 650) window.location.replace(config.DESKTOP_SITE)
+                if (localStorage.getItem('token')) this.checkLogin()
+
+                this.getCategories()
+
+                const ot = localStorage.getItem('ot') || ''
+
+                this.openTab = ot;
+            
+                if (ot === "") {
+                    this.getProducts()
+                } else if (ot === "ph") {
+                    this.showPH();
+                } else if (ot === "ap") {
+                    this.getProducts("ap")
+                } else {
+                    this.getProducts(ot, ot)
+                }
+            }
+        })
+    </script>
+</body>
+</html>
