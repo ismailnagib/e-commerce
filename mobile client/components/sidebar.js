@@ -232,10 +232,10 @@ Vue.component("side-bar", {
       menuopen: false,
       openSignModal: false,
       openCartModal: false,
-      emailColor: "rgba(0, 0, 0, 0.5)",
-      passwordColor: "rgba(0, 0, 0, 0.5)",
-      newEmailColor: "rgba(0, 0, 0, 0.5)",
-      newPasswordColor: "rgba(0, 0, 0, 0.5)",
+      emailColor: "black",
+      passwordColor: "black",
+      newEmailColor: "black",
+      newPasswordColor: "black",
       upperhalfHeight: "25vh",
       email: "",
       password: "",
@@ -380,28 +380,28 @@ Vue.component("side-bar", {
       if (/\S+@\S+\.\S+/.test(this.email) === true) {
         this.emailColor = "#0fd252";
       } else {
-        this.emailColor = "rgba(0, 0, 0, 0.5)";
+        this.emailColor = "black";
       }
     },
     validateNewEmail() {
       if (/\S+@\S+\.\S+/.test(this.newemail) === true) {
         this.newEmailColor = "#0fd252";
       } else {
-        this.newEmailColor = "rgba(0, 0, 0, 0.5)";
+        this.newEmailColor = "black";
       }
     },
     validatePassword() {
       if (this.password.length > 5) {
         this.passwordColor = "#0fd252";
       } else {
-        this.passwordColor = "rgba(0, 0, 0, 0.5)";
+        this.passwordColor = "black";
       }
     },
     validateNewPassword() {
       if (this.newpassword.length > 5) {
         this.newPasswordColor = "#0fd252";
       } else {
-        this.newPasswordColor = "rgba(0, 0, 0, 0.5)";
+        this.newPasswordColor = "black";
       }
     },
     cartModal(condition = !this.openCartModal) {

@@ -412,7 +412,8 @@ h1, h2, h3, h4, h5, h6, p, span {
     display: block;
     font-size: 14px;
     font-family: 'Roboto', sans-serif;
-    color: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.1);
+    padding: 10px 20px;
 }
 #upperhalf #signupform #newname {
     color: #0fd252;
@@ -549,6 +550,7 @@ h1, h2, h3, h4, h5, h6, p, span {
     font-size: 4vw;
     padding: 10px 20px;
     width: 100%;
+    border: solid 2px rgba(15, 210, 82, 0.5);
 }
 
 #promoteBtn {
@@ -578,9 +580,10 @@ h1, h2, h3, h4, h5, h6, p, span {
 #editcategorymodal,
 #editproductmodal,
 #deletecategorymodal,
-#deleteproductmodal
+#deleteproductmodal,
 #deletecategoryconfirm,
 #deleteproductconfirm {
+    height: 100vh;
     top: 0;
     left: 0;
 }
@@ -614,6 +617,8 @@ h1, h2, h3, h4, h5, h6, p, span {
 
 #editCForm select, #deleteCForm select, #addPForm select, #editPForm select, #deletePForm select {
     width: 100%;
+    padding: 5px 10px;
+    background: rgba(0, 0, 0, 0.1);
 }
 
 .phTotalSum {
