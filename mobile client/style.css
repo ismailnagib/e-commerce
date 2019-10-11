@@ -327,10 +327,6 @@ h1, h2, h3, h4, h5, h6, p, span {
     border-bottom: solid 1px rgba(255, 255, 255, 0.1);
 }
 
-#sidebar ul li:hover {
-    color: rgba(255,255,255,0.7)
-}
-
 #sidebar-close-btn {
     position: absolute;
     right: 3.25vh;
@@ -375,12 +371,6 @@ h1, h2, h3, h4, h5, h6, p, span {
     text-align: center;
     font-weight: bold;
     color: white;
-}
-.itemcount:hover {
-    cursor: default !important;
-}
-.fa-cart-plus:hover {
-    cursor: pointer;
 }
 .backdrop {
     position: fixed;
@@ -455,8 +445,6 @@ h1, h2, h3, h4, h5, h6, p, span {
     position: fixed;
     display: flex;
     justify-content: center;
-    justify-items: center;
-    align-content: center;
     align-items: center;
     font-family: 'Roboto', sans-serif;
     background: white;
@@ -508,7 +496,14 @@ h1, h2, h3, h4, h5, h6, p, span {
 }
 
 #ap {
+    margin: 0px !important;
     margin-top: 50px;
+    width: 100%;
+    overflow: auto;
+}
+
+#ap .col-10 .row {
+    margin: 0px !important;
 }
 
 .adminmenugroup {
@@ -519,10 +514,8 @@ h1, h2, h3, h4, h5, h6, p, span {
 
 .adminmenu {
     height: 100px !important;
-    max-width: 400px !important;
-    min-width: 400px !important;
-    background: white;
     border: solid 5px;
+    color: white;
     background: #0fd252;
     background: -moz-linear-gradient(-45deg, #0fd252 8%, #0a8c37 83%);
     background: -webkit-linear-gradient(-45deg, #0fd252 8%, #0a8c37 83%);
@@ -533,22 +526,14 @@ h1, h2, h3, h4, h5, h6, p, span {
     margin: 25px 0px;
 }
 
-.adminmenu:hover {
-    color: white;
-    background: #0fd252;
-    background: -moz-linear-gradient(-45deg, #0fd252 8%, #0a8c37 83%);
-    background: -webkit-linear-gradient(-45deg, #0fd252 8%, #0a8c37 83%);
-    background: linear-gradient(135deg, #0fd252 8%, #0a8c37 83%);
-    border: none;
-}
-
 .adminmenu div {
     margin: auto;
-    font-size: 25px;
+    font-size: calc(10px + 0.5vw);
 }
 
 .adminmenu div h4 {
     padding-top: 10px;
+    font-size: calc(15px + 0.5vw);
 }
 
 .adminpromote {
@@ -561,9 +546,9 @@ h1, h2, h3, h4, h5, h6, p, span {
 }
 
 .adminpromote div input {
-    font-size: 20px;
+    font-size: 4vw;
     padding: 10px 20px;
-    width: 400px;
+    width: 100%;
 }
 
 #promoteBtn {
@@ -573,59 +558,31 @@ h1, h2, h3, h4, h5, h6, p, span {
     background: -webkit-linear-gradient(-45deg, #0fd252 8%, #0a8c37 83%);
     background: linear-gradient(135deg, #0fd252 8%, #0a8c37 83%);
     height: 50px;
-    width: 400px;
+    width: 100%;
 }
 
 .categorymodal, .productmodal {
     position: fixed;
     display: flex;
-    width: 30vw;
-    background: white;
-    left: 35vw;
-    z-index: 11000;
     justify-content: center;
-    border: transparent;
-    border-radius: 2vw 2vw 2vw 2vw;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+    background: white;
+    z-index: 11000;
+    width: 100%;
+    height: 100%;
 }
 
-#addcategorymodal {
-    min-height: 30vh;
-    top: 35vh;
-}
-
-#addproductmodal {
-    min-height: 45vh;
-    top: 27.5vh;
-}
-
-#editcategorymodal {
-    min-height: 35vh;
-    top: 32.5vh;
-}
-
-#editproductmodal {
-    min-height: 45vh;
-    top: 22.5vh;
-}
-
-#deletecategorymodal {
-    min-height: 15vh;
-    top: 32.5vh;
-}
-
-#deleteproductmodal {
-    min-height: 15vh;
-    top: 32.5vh;
-}
-
-#deletecategoryconfirm {
-    min-height: 25vh;
-    top: 32.5vh;
-}
-
+#addcategorymodal,
+#addproductmodal,
+#editcategorymodal,
+#editproductmodal,
+#deletecategorymodal,
+#deleteproductmodal
+#deletecategoryconfirm,
 #deleteproductconfirm {
-    min-height: 25vh;
-    top: 32.5vh;
+    top: 0;
+    left: 0;
 }
 
 #addCForm, #editCForm, #deleteCForm, #addPForm, #editPForm, #deletePForm {

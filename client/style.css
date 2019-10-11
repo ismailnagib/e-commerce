@@ -492,7 +492,14 @@ h1, h2, h3, h4, h5, h6, p, span {
 }
 
 #ap {
+    margin: 0px !important;
     margin-top: 50px;
+    width: 100%;
+    overflow: auto;
+}
+
+#ap .col-10 .row {
+    margin: 0px !important;
 }
 
 .adminmenugroup {
@@ -528,11 +535,12 @@ h1, h2, h3, h4, h5, h6, p, span {
 
 .adminmenu div {
     margin: auto;
-    font-size: 25px;
+    font-size: calc(10px + 0.5vw);
 }
 
 .adminmenu div h4 {
     padding-top: 10px;
+    font-size: calc(15px + 0.5vw);
 }
 
 .adminpromote {
@@ -545,9 +553,9 @@ h1, h2, h3, h4, h5, h6, p, span {
 }
 
 .adminpromote div input {
-    font-size: 20px;
+    font-size: 4vw;
     padding: 10px 20px;
-    width: 400px;
+    width: 100%;
 }
 
 #promoteBtn {
@@ -557,7 +565,7 @@ h1, h2, h3, h4, h5, h6, p, span {
     background: -webkit-linear-gradient(-45deg, #0fd252 8%, #0a8c37 83%);
     background: linear-gradient(135deg, #0fd252 8%, #0a8c37 83%);
     height: 50px;
-    width: 400px;
+    width: 100%;
 }
 
 .categorymodal, .productmodal {
