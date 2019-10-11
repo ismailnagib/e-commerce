@@ -547,7 +547,7 @@ h1, h2, h3, h4, h5, h6, p, span {
 }
 
 .adminpromote div input {
-    font-size: 4vw;
+    font-size: calc(15px + 0.5vw);
     padding: 10px 20px;
     width: 100%;
     border: solid 2px rgba(15, 210, 82, 0.5);
