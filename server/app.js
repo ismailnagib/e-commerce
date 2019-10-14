@@ -27,6 +27,6 @@ const options = {
 };
 
 const server = https.createServer(options, app);
-server.listen(port, () => console.log(`Service is running on port ${port}`));
+app.listen(port, () => console.log(`Service is running on port ${port}`));
 
 module.exports = server;

@@ -11,7 +11,7 @@ module.exports = {
         return res.status(httpStatus.ok).json(data);
       })
       .catch(err => {
-        return res.status(httpStatus.internalServerError).json({ error: err });
+        return res.status(httpStatus.internalServerError).json({ message: err.message || err });
       });
   },
 
@@ -24,7 +24,7 @@ module.exports = {
         return res.status(httpStatus.ok).json(data);
       })
       .catch(err => {
-        return res.status(httpStatus.internalServerError).json({ error: err });
+        return res.status(httpStatus.internalServerError).json({ message: err.message || err });
       });
   },
 
@@ -68,19 +68,22 @@ module.exports = {
                     return res.status(201).json({ message: "New product added." });
                   })
                   .catch(err => {
-                    return res.status(httpStatus.internalServerError).json({ error: err });
+                    return res.status(httpStatus.internalServerError).json({ message: err.message || err });
                   });
               }
             })
             .catch(err => {
-              return res.status(httpStatus.internalServerError).json({ error: err });
+              console.log(err)
+              return res.status(httpStatus.internalServerError).json({ message: err.message || err });
             });
         } else {
+          console.log('masuk')
           return res.status(httpStatus.internalServerError).json({ message: "The category is unregistered." });
         }
       })
       .catch(err => {
-        return res.status(httpStatus.internalServerError).json({ error: err });
+        console.log(err)
+        return res.status(httpStatus.internalServerError).json({ message: err.message || err });
       });
   },
 
@@ -120,19 +123,19 @@ module.exports = {
                       .json({ message: `Product '${req.params.id}' updated.` });
                   })
                   .catch(err => {
-                    return res.status(httpStatus.internalServerError).json({ error: err });
+                    return res.status(httpStatus.internalServerError).json({ message: err.message || err });
                   });
               }
             })
             .catch(err => {
-              return res.status(httpStatus.internalServerError).json({ error: err });
+              return res.status(httpStatus.internalServerError).json({ message: err.message || err });
             });
         } else {
           return res.status(httpStatus.internalServerError).json({ message: "The category is unregistered." });
         }
       })
       .catch(err => {
-        return res.status(httpStatus.internalServerError).json({ error: err });
+        return res.status(httpStatus.internalServerError).json({ message: err.message || err });
       });
   },
 
@@ -146,7 +149,7 @@ module.exports = {
           .json({ message: `Product '${req.params.id}' deleted.` });
       })
       .catch(err => {
-        return res.status(httpStatus.internalServerError).json({ error: err });
+        return res.status(httpStatus.internalServerError).json({ message: err.message || err });
       });
   },
 

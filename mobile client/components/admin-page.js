@@ -379,7 +379,8 @@ Vue.component("admin-page", {
               });
           })
           .catch(err => {
-            // console.log(JSON.stringify(err));
+            console.log(err)
+            alert(err.response.data.message);
           });
       }
     },

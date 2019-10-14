@@ -56,7 +56,7 @@ module.exports = {
         return res.status(httpStatus.ok).json({ data: data });
       })
       .catch(err => {
-        return res.status(httpStatus.internalServerError).json({ error: err });
+        return res.status(httpStatus.internalServerError).json({ message: err.message || err });
       });
   },
 
@@ -77,12 +77,12 @@ module.exports = {
               return res.status(201).json({ message: "New user added." });
             })
             .catch(err => {
-              return res.status(httpStatus.internalServerError).json({ error: err });
+              return res.status(httpStatus.internalServerError).json({ message: err.message || err });
             });
         }
       })
       .catch(err => {
-        return res.status(httpStatus.internalServerError).json({ error: err });
+        return res.status(httpStatus.internalServerError).json({ message: err.message || err });
       });
   },
 
@@ -101,7 +101,7 @@ module.exports = {
         return res.status(httpStatus.ok).json({ message: `User ${req.params.id} updated.` });
       })
       .catch(err => {
-        return res.status(httpStatus.internalServerError).json({ error: err });
+        return res.status(httpStatus.internalServerError).json({ message: err.message || err });
       });
   },
 
@@ -113,7 +113,7 @@ module.exports = {
         return res.status(httpStatus.ok).json({ message: `User '${req.params.id}' deleted.` });
       })
       .catch(err => {
-        return res.status(httpStatus.internalServerError).json({ error: err });
+        return res.status(httpStatus.internalServerError).json({ message: err.message || err });
       });
   },
 
