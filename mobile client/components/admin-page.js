@@ -154,7 +154,7 @@ Vue.component("admin-page", {
                         Product image (<b>max. 1MB</b>):<br>
                         <input type="file" id="proImg" accept="image/*" @change='proImgChange'><br><br>
                     </div>
-                    <input type="text" placeholder="Name (max. 13 characters)" v-model='newProName' @keyup='valProName'><br>
+                    <input type="text" placeholder="Name (max. 20 characters)" v-model='newProName' @keyup='valProName'><br>
                     <input type="text" placeholder="Description (max. 72 characters)" v-model='newProDesc' @keyup='valProDesc'><br>
                     <input type="text" placeholder="Backtext (max. 4 characters)" v-model='newProBT' @keyup='valProBT'><br>
                     <input type="text" placeholder="Price (has to be number, max. 10 characters)" v-model='newProPrice' @keyup='valProPrice'><br>
@@ -177,7 +177,7 @@ Vue.component("admin-page", {
                         <option disabled value="">Please choose a product to be edited</option>
                         <option v-for='product in products'>{{ product.name }}</option>
                     </select><br><br>
-                    <input type="text" placeholder="Name (max. 13 characters)" v-model='newProName' @keyup='valProName'><br>
+                    <input type="text" placeholder="Name (max. 20 characters)" v-model='newProName' @keyup='valProName'><br>
                     <input type="text" placeholder="Description (max. 72 characters)" v-model='newProDesc' @keyup='valProDesc'><br>
                     <input type="text" placeholder="Backtext (max. 4 characters)" v-model='newProBT' @keyup='valProBT'><br>
                     <input type="text" placeholder="Price (has to be number, max. 10 characters)" v-model='newProPrice' @keyup='valProPrice'><br>
@@ -531,7 +531,7 @@ Vue.component("admin-page", {
       this.newProImg = event.target.files[0];
     },
     valProName() {
-      this.newProName = this.newProName.slice(0, 13);
+      this.newProName = this.newProName.slice(0, 20);
     },
     valProDesc() {
       this.newProDesc = this.newProDesc.slice(0, 72);
