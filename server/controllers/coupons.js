@@ -25,7 +25,7 @@ module.exports = {
         return res.status(httpStatus.ok).json(data);
       })
       .catch(err => {
-        return res.status(httpStatus.internalServerError).json({ message: err });
+        return res.status(httpStatus.internalServerError).json({ message: err.message || err });
       });
   },
 
@@ -38,7 +38,7 @@ module.exports = {
         return res.status(httpStatus.ok).json({});
       })
       .catch(err => {
-        return res.status(httpStatus.internalServerError).json({ message: err });
+        return res.status(httpStatus.internalServerError).json({ message: err.message || err });
       });
   }
 };

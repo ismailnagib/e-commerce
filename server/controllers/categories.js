@@ -49,7 +49,6 @@ module.exports = {
       const data = await Category.updateOne({ _id }, { name, icon });
       return res.status(httpStatus.ok).json(data);
     } catch (error) {
-      console.log(error)
       return res.status(httpStatus.internalServerError).json({ error });
     }
   },

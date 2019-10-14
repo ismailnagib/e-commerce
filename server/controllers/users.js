@@ -156,7 +156,7 @@ module.exports = {
           }
         })
         .catch(err => {
-          return res.status(httpStatus.internalServerError).json({ message: err });
+          return res.status(httpStatus.internalServerError).json({ message: err.message || err });
         });
     }
   },
@@ -187,7 +187,6 @@ module.exports = {
                     return res.status(201).json({ message: 'Email registration successful. Please sign in to continue.' })
                   })
                   .catch(err => {
-                    console.log(err)
                     return res.status(httpStatus.internalServerError).json({
                       message:
                         "An error occured during the registration process. Please try again later."
@@ -224,7 +223,7 @@ module.exports = {
         });
       })
       .catch(err => {
-        return res.status(httpStatus.ok).json({ message: err });
+        return res.status(httpStatus.ok).json({ message: err.message || err });
       });
   },
 
@@ -258,11 +257,11 @@ module.exports = {
             return res.status(httpStatus.ok).json({});
           })
           .catch(err => {
-            return res.status(httpStatus.internalServerError).json({ message: err });
+            return res.status(httpStatus.internalServerError).json({ message: err.message || err });
           });
       })
       .catch(err => {
-        console.log(err);
+        return res.status(httpStatus.internalServerError).json({ message: err.message || err });
       });
   },
 
@@ -319,18 +318,18 @@ module.exports = {
                     return res.status(httpStatus.ok).json({});
                   })
                   .catch(err => {
-                    return res.status(httpStatus.internalServerError).json({ message: err });
+                    return res.status(httpStatus.internalServerError).json({ message: err.message || err });
                   });
               } else {
                 return res.status(httpStatus.ok).json({});
               }
             })
             .catch(err => {
-              return res.status(httpStatus.internalServerError).json({ message: err });
+              return res.status(httpStatus.internalServerError).json({ message: err.message || err });
             });
         })
         .catch(err => {
-          return res.status(httpStatus.internalServerError).json({ message: err });
+          return res.status(httpStatus.internalServerError).json({ message: err.message || err });
         });
     });
   },
@@ -342,8 +341,7 @@ module.exports = {
         return res.status(httpStatus.ok).json(data.transaction);
       })
       .catch(err => {
-        console.log(err);
-        return res.status(httpStatus.internalServerError).json({ message: err });
+        return res.status(httpStatus.internalServerError).json({ message: err.message || err });
       });
   },
 
@@ -372,7 +370,7 @@ module.exports = {
                 });
               })
               .catch(err => {
-                return res.status(httpStatus.internalServerError).json({ message: err });
+                return res.status(httpStatus.internalServerError).json({ message: err.message || err });
               });
           }
         } else {
@@ -383,7 +381,7 @@ module.exports = {
         }
       })
       .catch(err => {
-        return res.status(httpStatus.internalServerError).json({ message: err });
+        return res.status(httpStatus.internalServerError).json({ message: err.message || err });
       });
   }
 };

@@ -38,7 +38,7 @@ module.exports = {
       })
       .catch(err => {
         return res.status(httpStatus.internalServerError).json({
-          message: err + " --> in other words, we can't find what you want"
+          message: err.message || err + " --> in other words, we can't find what you want"
         });
       });
   },
@@ -73,16 +73,13 @@ module.exports = {
               }
             })
             .catch(err => {
-              console.log(err)
               return res.status(httpStatus.internalServerError).json({ message: err.message || err });
             });
         } else {
-          console.log('masuk')
           return res.status(httpStatus.internalServerError).json({ message: "The category is unregistered." });
         }
       })
       .catch(err => {
-        console.log(err)
         return res.status(httpStatus.internalServerError).json({ message: err.message || err });
       });
   },
@@ -183,7 +180,7 @@ module.exports = {
                   return res.status(httpStatus.ok).json({});
                 })
                 .catch(err => {
-                  return res.status(httpStatus.internalServerError).json({ message: err });
+                  return res.status(httpStatus.internalServerError).json({ message: err.message || err });
                 });
             } else {
               res
@@ -192,7 +189,7 @@ module.exports = {
             }
           })
           .catch(err => {
-            return res.status(httpStatus.internalServerError).json({ message: err });
+            return res.status(httpStatus.internalServerError).json({ message: err.message || err });
           });
       } else {
         return res.status(httpStatus.internalServerError).json({
