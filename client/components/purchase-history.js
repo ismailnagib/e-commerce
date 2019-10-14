@@ -75,7 +75,8 @@ Vue.component("purchase-history", {
           this.$emit("load", false);
         })
         .catch(err => {
-          console.log(err);
+          this.transactions = [];
+          this.starColors = [];
           this.$emit("load", false);
         });
     },
@@ -100,7 +101,7 @@ Vue.component("purchase-history", {
             this.getTransactions();
           })
           .catch(err => {
-            console.log(err);
+            alert(err.response.data.message);
           });
       }
     }

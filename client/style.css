@@ -218,7 +218,6 @@ h1, h2, h3, h4, h5, h6, p, span {
     margin-left: 5px;
 }
 
-/* MY OWN CSS */
 #sidebar {
     display: flex;
     position: fixed;

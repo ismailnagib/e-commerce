@@ -98,7 +98,7 @@
                         this.categories = data.data
                     })
                     .catch(err => {
-                        // console.log(err)
+                        this.categories = []
                     })
                 },
                 getProducts(openTab = '', parameter = '', load = true) {
@@ -114,7 +114,7 @@
                         this.loading = false;
                     })
                     .catch(err => {
-                        // console.log(err)
+                        this.products = [];
                         this.loading = false;
                     })
                 },

@@ -437,7 +437,7 @@ Vue.component("side-bar", {
           localStorage.removeItem("totalsum");
         })
         .catch(err => {
-          // console.log(err);
+          alert(err.response.data.message);
         });
     },
     removeFromCart(item) {
@@ -499,7 +499,7 @@ Vue.component("side-bar", {
             }
           })
           .catch(err => {
-            // console.log(err);
+            this.discount = 0;
           });
       } 
     }

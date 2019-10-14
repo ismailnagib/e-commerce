@@ -379,7 +379,7 @@ Vue.component("admin-page", {
               });
           })
           .catch(err => {
-            console.log(JSON.stringify(err));
+            alert(err.response.data.message);
           });
       }
     },
@@ -492,7 +492,7 @@ Vue.component("admin-page", {
             this.$emit("closebackdrop");
           })
           .catch(err => {
-            console.log(err);
+            alert(err.response.data.message);
           });
       } else {
         this.deleteCategoryConfirm = true;
@@ -520,7 +520,7 @@ Vue.component("admin-page", {
             this.$emit("closebackdrop");
           })
           .catch(err => {
-            console.log(err);
+            alert(err.response.data.message);
           });
       } else {
         this.deleteProductConfirm = true;
