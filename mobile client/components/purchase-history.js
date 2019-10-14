@@ -19,7 +19,7 @@ Vue.component("purchase-history", {
                                 <span class="pr-4">You rated the product</span>
                                 <i class="fa fa-star" :style='{ color: i <= item.ratings[item.ratedBy.indexOf(authuserid)] ? "gold" : "black" }' v-for='i in 5'></i>
                             </span>
-                            <span class="col-12 mt-4 text-left" v-else>
+                            <span class="col-12 mt-4 text-left ph-rate" v-else>
                                 <i class="fa fa-star" :style='{ color: i <= starColors[transactions.length - index - 1][index2] ? "gold" : "black" }' v-for='i in 5' @click='starClick(transactions.length - index - 1, index2, i)'></i>
                                 <button v-if="starColors[transactions.length - index - 1][index2] > 0" class="btn ml-2 rateBtn px-2 py-1" @click='rate(transactions.length - index - 1, index2, item._id)'>Rate</button>
                                 <button v-else class="btn ml-2 rateBtn px-2 py-1 disabled">Rate</button>
